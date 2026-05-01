@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MobyForge — warm editorial palette: ivory + ink + ember + forge orange */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    /* Ivory paper background, deep ink text */
+    --background: 36 33% 96%;
+    --foreground: 220 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+
+    /* Ember orange — the forge */
+    --primary: 18 88% 52%;
+    --primary-foreground: 36 40% 98%;
+    --primary-glow: 30 95% 60%;
+
+    /* Warm sand */
+    --secondary: 36 30% 92%;
+    --secondary-foreground: 220 25% 18%;
+
+    --muted: 36 25% 90%;
+    --muted-foreground: 220 12% 40%;
+
+    /* Deep teal accent */
+    --accent: 188 65% 38%;
+    --accent-foreground: 36 40% 98%;
+
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 86%;
+    --input: 30 20% 88%;
+    --ring: 18 88% 52%;
+
+    --radius: 0.75rem;
+
+    --gradient-ember: linear-gradient(135deg, hsl(18 88% 52%) 0%, hsl(28 92% 56%) 50%, hsl(38 95% 60%) 100%);
+    --gradient-ink: linear-gradient(135deg, hsl(220 30% 14%) 0%, hsl(220 25% 22%) 100%);
+    --gradient-paper: linear-gradient(180deg, hsl(36 33% 96%) 0%, hsl(36 30% 93%) 100%);
+    --gradient-text: linear-gradient(135deg, hsl(18 88% 48%) 0%, hsl(28 90% 52%) 50%, hsl(188 65% 38%) 100%);
+
+    --shadow-ink: 0 8px 28px -10px hsl(220 30% 14% / 0.18);
+    --shadow-ember: 0 12px 40px -12px hsl(18 88% 52% / 0.45);
+    --shadow-paper: 0 1px 0 hsl(30 20% 88%), 0 6px 20px -10px hsl(220 30% 14% / 0.10);
+    --shadow-lift: 0 20px 50px -20px hsl(220 30% 14% / 0.25);
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-image:
+      radial-gradient(circle at 1px 1px, hsl(220 25% 12% / 0.04) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+  h1, h2, h3, .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.02em;
+  }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-ember { background: var(--gradient-ember); }
+  .bg-ink { background: var(--gradient-ink); }
+  .bg-paper { background: var(--gradient-paper); }
+
+  .shadow-ink { box-shadow: var(--shadow-ink); }
+  .shadow-ember { box-shadow: var(--shadow-ember); }
+  .shadow-paper { box-shadow: var(--shadow-paper); }
+  .shadow-lift { box-shadow: var(--shadow-lift); }
+
+  /* Hand-drawn underline */
+  .underline-sketch {
+    background-image: linear-gradient(transparent calc(100% - 6px), hsl(var(--primary) / 0.35) 6px);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding: 0 4px;
+  }
+
+  /* Subtle paper grain */
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.5); }
+    100% { box-shadow: 0 0 0 16px hsl(var(--primary) / 0); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-fade-up { animation: fade-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  .animate-marquee { animation: marquee 12s linear infinite; }
+  .animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+}
